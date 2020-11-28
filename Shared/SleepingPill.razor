@@ -1,0 +1,24 @@
+﻿@inject IJSRuntime JSRuntime
+
+<h1>Blazor Download File</h1>
+
+<textarea @bind="noteContent" >Shutdown -s -t </textarea>
+<br />
+<button @onclick="DownloadFile">Get the Pill</button>
+<br />
+<textarea @bind="noteContent" >Shutdown -a</textarea>
+<br />
+<button @onclick="DownloadFile">Cancel the Pill</button>
+@code {
+    string noteContent;
+    string fileName = "SleepPill.bat";
+
+public async void DownloadFile()
+{
+    await JSRuntime.InvokeAsync<object>(
+        "FileSaveAs",
+        fileName,
+        noteContent
+    );
+}
+}
